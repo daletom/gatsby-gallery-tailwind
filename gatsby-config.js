@@ -13,7 +13,7 @@ module.exports = {
         // the only required plugin option for WordPress is the GraphQL url.
         url:
           process.env.WPGRAPHQL_URL ||
-          `http://localhost:8888/xigmi/graphql`,
+          `http://gatsbygallerytailwind.local/graphql`,
       },
     },
     `gatsby-plugin-postcss`,
