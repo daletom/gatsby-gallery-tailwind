@@ -1,32 +1,48 @@
 import React from "react"
-import { graphql } from "gatsby"
-//import Image from "gatsby-image"
+import { Link, graphql } from "gatsby"
+import parse from "html-react-parser"
+import Image from "gatsby-image"
 
-const IndexPage = ({data}) => (
+export default ({ data }) => {
+  return (
   <div class="p-4">  
-    <h1>Hi There</h1>
-    <p>This is Gatsby stuff happening</p>
-    <div class="p-4">
-      <img src={data.post.featuredImage.node.sourceUrl}
-      srcset={data.post.featuredImage.node.srcSet}
-      sizes={data.post.featuredImage.node.sizes} />
+    <h1>Far Far Away News</h1>
+    <h3>Posts</h3>
+    {data.allWpPost.edges.map(({ node }) => (
+      <div class="p-4 w-1/3">
+      <Link to={node.slug}>
+        <p class="text-2xl p-2">{parse(node.title)}</p>
+        </Link>
+        <Image 
+        fixed={node.featuredImage.node.localFile.childImageSharp.fixed}
+        class="w-2/4"
+        />
+        <p class="p-2">{parse(node.excerpt)}</p>
+      </div>
+    ))}
     </div>
-  </div>
-)
-
-export default IndexPage
+    )
+}
 
 export const query = graphql`
 query {
-  post: wpPost {
-    id
-    title
-    featuredImage {
+  allWpPost(sort: {order: DESC, fields: date}) {
+    edges {
       node {
-        altText
-        sourceUrl
-        srcSet
-        sizes
+        title
+        excerpt
+        slug
+        featuredImage {
+          node {
+            localFile {
+              childImageSharp {
+                fixed {
+                  ...GatsbyImageSharpFixed
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
