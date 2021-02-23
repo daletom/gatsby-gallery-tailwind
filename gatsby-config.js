@@ -22,9 +22,10 @@ module.exports = {
         defaultImgixParams: { auto: 'format,compress '},
         fields: [
           {
-            nodeType: "WpMediaItem",
+            nodeType: "ImageSharp",
             fieldName: "imgixImage",
-            getURL: node => undefined
+            getURL: (node) => {
+              console.log(node) }
           },
         ]
       },
