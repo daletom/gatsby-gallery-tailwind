@@ -4,6 +4,8 @@
  * See: https://www.gatsbyjs.com/docs/gatsby-config/
  */
 
+const { ImgixSourceType } = require("@imgix/gatsby");
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby WordPress Tutorial`,
@@ -11,6 +13,13 @@ module.exports = {
     author: `tomdale`,
   },
   plugins: [
+    {
+      resolve: `@imgix/gatsby`,
+      options: {
+        domain: 'wp-gatsby.imgix.net',
+        defaultImgixParams: { auto: 'format,compress '},
+      },
+    },
     {
       resolve: `gatsby-source-wordpress`,
       options: {

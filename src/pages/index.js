@@ -1,7 +1,7 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
 import parse from "html-react-parser"
-import Image from "gatsby-image"
+import Img from "gatsby-image"
 
 export default ({ data }) => {
   return (
@@ -13,8 +13,8 @@ export default ({ data }) => {
       <Link to={node.slug}>
         <p class="text-2xl p-2">{parse(node.title)}</p>
         </Link>
-        <Image 
-        fixed={node.featuredImage.node.localFile.childImageSharp.fixed}
+        <Img 
+        fixed={node.featuredImage.node.localFile.imgixImage.fixed}
         class="w-2/4"
         />
         <p class="p-2">{parse(node.excerpt)}</p>
@@ -35,9 +35,11 @@ query {
         featuredImage {
           node {
             localFile {
-              childImageSharp {
-                fixed {
-                  ...GatsbyImageSharpFixed
+              imgixImage {
+                fixed(
+                  width: 300
+                ) {
+                  ...GatsbyImgixFixed
                 }
               }
             }
