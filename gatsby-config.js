@@ -16,8 +16,17 @@ module.exports = {
     {
       resolve: `@imgix/gatsby`,
       options: {
-        domain: 'wp-gatsby.imgix.net',
+        domain: 'tom-proxy.imgix.net',
+        secureURLToken: 'UeCnTaStKyB9Vrca',
+        sourceType: ImgixSourceType.WebProxy,
         defaultImgixParams: { auto: 'format,compress '},
+        fields: [
+          {
+            nodeType: "WpMediaItem",
+            fieldName: "imgixImage",
+            getURL: node => undefined
+          },
+        ]
       },
     },
     {
